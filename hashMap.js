@@ -15,14 +15,12 @@ function hashMap() {
 
     function set(key, value) {
         let hashCode = hash(key);
-
-        if (growthFactor() === true) {
-            bucketLength = bucketLength * 2;
-            hashCode = hashCode % bucketLength;
-            return (hashMapArray[hashCode] = value);
+        growthFactor();
+        hashCode = hashCode % bucketLength;
+        if (hashMapArray[hashCode] != null) {
+            linkedList(hashCode, value);
         }
 
-        hashCode = hashCode % bucketLength;
         return (hashMapArray[hashCode] = value);
     }
 
@@ -48,25 +46,43 @@ function hashMap() {
         return counter;
     }
 
+    function linkedList(hashCode, value) {
+    
+        function node(value) {
+            let nodeValue = value;
+            let nextAddress = null;
+            return {nodeValue, nextAddress};
+        }
+
+        let newNode = node(value);
+
+        /* LEAVING OFF HERE FOR TODAY (30.08.24, 6:35 PM)
+            Things to note:
+                - Trying to figure out how to create a HEAD Node initially to give it the node parameters of nextAddress
+                - Figuring out how to iterate through HEAD Node, if HEAD changes (i.e now a different bucket on hashMap, head changes thus cannot link to other buckets)
+                - Figuring out the how to transfer the logic of a linked list to acutal code
+        */
+
+    }
+
     return { hash, set, bucketLength };
 }
 const testHashMap = hashMap();
 
 /* TEST DATA */
-testHashMap.set('apple', 'red')
-testHashMap.set('banana', 'yellow')
-testHashMap.set('carrot', 'orange')
-testHashMap.set('dog', 'brown')
-testHashMap.set('elephant', 'gray')
-testHashMap.set('frog', 'green')
-testHashMap.set('grape', 'purple')
-testHashMap.set('hat', 'black')
-testHashMap.set('ice cream', 'white')
-testHashMap.set('jacket', 'blue')
-testHashMap.set('kite', 'pink')
-testHashMap.set('lion', 'golden')
-testHashMap.set('tester', 'blacker')
-testHashMap.set('reee', 'napalm')
-
+testHashMap.set("apple", "red");
+testHashMap.set("banana", "yellow");
+testHashMap.set("carrot", "orange");
+testHashMap.set("dog", "brown");
+testHashMap.set("elephant", "gray");
+testHashMap.set("frog", "green");
+testHashMap.set("grape", "purple");
+testHashMap.set("hat", "black");
+testHashMap.set("ice cream", "white");
+testHashMap.set("jacket", "blue");
+testHashMap.set("kite", "pink");
+testHashMap.set("lion", "golden");
+testHashMap.set("tester", "blacker");
+testHashMap.set("reee", "napalm");
 
 console.log(testHashMap.bucketLength);
