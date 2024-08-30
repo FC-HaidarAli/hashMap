@@ -30,6 +30,7 @@ function hashMap() {
         let growth = bucketLength * 0.75; //0.75 === HashMaps Load Factor ( Arbtirary Number was used here, adjust as necessary )
 
         if (growth < hashMapArraySize()) {
+            bucketLength = bucketLength * 2;
             return true;
         } else {
             return false;
