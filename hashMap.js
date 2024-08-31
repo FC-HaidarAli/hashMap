@@ -46,15 +46,23 @@ function hashMap() {
         return counter;
     }
 
-    function linkedList(hashCode, value) {
+    function linkedList(hashCode, value) {  //Linked List for dealing with Collisions resulting from the same set Values
     
-        function node(value) {
+        /*function node(value) {
             let nodeValue = value;
             let nextAddress = null;
             return {nodeValue, nextAddress};
+        }*/
+
+        class node {
+            constructor(linkedValue, nextAddress) {
+                this.value = linkedValue;
+                this.nextAddress = nextAddress;
+            }
         }
 
-        let newNode = node(value);
+        let headNode = new node(hashMapArray[hashCode]);
+        let newNode = new node(value);
 
         /* LEAVING OFF HERE FOR TODAY (30.08.24, 6:35 PM)
             Things to note:
