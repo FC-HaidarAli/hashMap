@@ -2,6 +2,10 @@ function hashMap() {
     let hashMapArray = [];
     let bucketLength = 16; //Intial Bucket Length, Bucket Length will change with growth Factor
 
+    function keyValuePairs(key, value) {    
+        return {key, value} 
+    }
+
     function hash(key) {
         let hashCode = 0;
 
@@ -19,7 +23,7 @@ function hashMap() {
         if (growthFactor() === true) {
             bucketLength = bucketLength * 2;
             hashCode = hashCode % bucketLength;
-            return (hashMapArray[hashCode] = value);
+            return (hashMapArray[hashCode] = keyValuePairs(key, value));
         }
 
         hashCode = hashCode % bucketLength;
