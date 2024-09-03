@@ -1,6 +1,6 @@
 function hashMap() {
     let hashMapArray = [];
-    let bucketLength = 16; //Intial Bucket Length, Bucket Length will change with growth Factor
+    let bucketLength = 16; //Intial Bucket Length
 
     function hash(key) {
         let hashCode = 0;
@@ -11,6 +11,21 @@ function hashMap() {
         return hashCode;
     }
 
+    function keyValueObject(key, value) {
+        return { key, value };
+    }
+
+    function set(key, value) { 
+        let hashMapObject = keyValueObject(key, value);
+        let hashCode = hash(key);
+        
+        hashCode = hashCode % bucketLength;
+        hashMapArray[hashCode] = hashMapObject;
+        console.log(hashMapArray[hashCode]);
+        return hashMapArray[hashCode];
+    }
+
+    return {set};
 }
 const testHashMap = hashMap();
 
@@ -30,4 +45,4 @@ testHashMap.set("lion", "golden");
 testHashMap.set("tester", "blacker");
 testHashMap.set("reee", "napalm");
 
-console.log(testHashMap.bucketLength);
+console.log(testHashMap.hashMapArray);
