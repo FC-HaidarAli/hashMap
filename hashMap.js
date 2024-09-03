@@ -32,18 +32,60 @@ function hashMap() {
         return bucketLength;
     }
 
+    function linkedList(hashMapObject, hashCode) {
+        function node(key, value, nextAddress) {
+            const keyValue = keyValueObject(key, value);
+            return Object.create(keyValue, {
+                nextAddress: {
+                    value: null,
+                    writeable: true,
+                    enumerable: true,
+                    configurable: false,
+                },
+            });
+        }
+        let headNode = hashMapArray[hashCode];
+        hashMapObject = node(hashMapObject.key, hashMapObject.value, null);
+
+        if ("nextAddress" in headNode) {
+            if (headNode.nextAddress == null) {
+                headNode.nextAddress = hashMapObject;
+
+                return hashMapObject;
+            } else {
+                let currentNode = headNode;
+                while (currentNode.nextAddress != null) {
+                    currentNode = currentNode.nextAddress;
+                }
+                currentNode.nextAddress = hashMapObject;
+
+                return hashMapObject;
+            }
+        } else {
+            node(headNode.key, headNode.value, hashMapObject);
+            
+            return hashMapObject;
+        }
+    }
+
     function set(key, value) {
         let hashMapObject = keyValueObject(key, value);
         let hashCode = hash(key);
 
         hashCode = hashCode % growthFactor();
-        hashMapArray[hashCode] = hashMapObject;
+
+        if (hashMapArray[hashCode] == null) {
+            hashMapArray[hashCode] = hashMapObject;
+        } else {
+            return linkedList(hashMapObject, hashCode);
+        }
 
         return hashMapArray[hashCode];
     }
 
-    return { set, bucketLength };
+    return { set, bucketLength, hashMapArray };
 }
+
 const testHashMap = hashMap();
 
 /* TEST DATA */
