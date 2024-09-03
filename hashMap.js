@@ -15,17 +15,33 @@ function hashMap() {
         return { key, value };
     }
 
+    function growthFactor() {
+        let counter = 0;
+
+        for (i = 0; i < hashMapArray; i++) {
+            if (hashMapArray[i] != null) {
+                counter++;
+            }
+        }
+
+        if (counter >= bucketLength * 0.75) {
+            bucketLength = bucketLength * 2;
+        }
+
+        return bucketLength;
+    }
+
     function set(key, value) { 
         let hashMapObject = keyValueObject(key, value);
         let hashCode = hash(key);
-        
-        hashCode = hashCode % bucketLength;
+
+        hashCode = hashCode % growthFactor();
         hashMapArray[hashCode] = hashMapObject;
-        console.log(hashMapArray[hashCode]);
+
         return hashMapArray[hashCode];
     }
 
-    return {set};
+    return {set, bucketLength};
 }
 const testHashMap = hashMap();
 
@@ -45,4 +61,4 @@ testHashMap.set("lion", "golden");
 testHashMap.set("tester", "blacker");
 testHashMap.set("reee", "napalm");
 
-console.log(testHashMap.hashMapArray);
+console.log(testHashMap.bucketLength);
