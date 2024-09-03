@@ -85,8 +85,9 @@ function hashMap() {
 
     function get(key) {
         for (i = 0; i < bucketLength-1; i++) {
-            if (hashMapArray[i] != null) {
-                if(hashMapArray[i].value != key) {
+            let keyTag = hashMapArray[i];
+            if (keyTag.key != null) {
+                if(keyTag.key != key) {
                     if ("nextAddress" in hashMapArray[i]) {
 
                         let currentNode = hashMapArray[i];
@@ -106,7 +107,41 @@ function hashMap() {
         return null;
     }
 
-    return { set, get, bucketLength, hashMapArray };
+    function has(key) {
+        if (get(key) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function remove(key) {
+        for (i = 0; i < bucketLength-1; i++) {
+            if (hashMapArray[i] != null) {
+                if(hashMapArray[i].value != key) {
+                    if ("nextAddress" in hashMapArray[i]) {
+
+                        let currentNode = hashMapArray[i];
+
+                        while (currentNode.nextAddress != null) {
+                            if (currentNode.nextAddress.key == key) {
+                                currentNode.nextAddress = currentNode.nextAddress.nextAddress; 
+                                return true;
+                            }
+                            currentNode = currentNode.nextAddress;
+                        }
+                    }
+                } else {
+                    hashMapArray[i] = null;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    return { set, get, has, remove, bucketLength, hashMapArray };
 }
 
 const testHashMap = hashMap();
@@ -127,4 +162,4 @@ testHashMap.set("lion", "golden");
 testHashMap.set("tester", "blacker");
 testHashMap.set("reee", "napalm");
 
-console.log(testHashMap.bucketLength);
+console.log(testHashMap.get("apple"));
