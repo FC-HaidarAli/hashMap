@@ -83,7 +83,30 @@ function hashMap() {
         return hashMapArray[hashCode];
     }
 
-    return { set, bucketLength, hashMapArray };
+    function get(key) {
+        for (i = 0; i < bucketLength-1; i++) {
+            if (hashMapArray[i] != null) {
+                if(hashMapArray[i].value != key) {
+                    if ("nextAddress" in hashMapArray[i]) {
+
+                        let currentNode = hashMapArray[i];
+
+                        while (currentNode.nextAddress != null) {
+                            if (currentNode.key == key) {
+                                return currentNode.value;
+                            }
+                            currentNode = currentNode.nextAddress;
+                        }
+                    }
+                } else {
+                    return hashMapArray[i].value;
+                }
+            }
+        }
+        return null;
+    }
+
+    return { set, get, bucketLength, hashMapArray };
 }
 
 const testHashMap = hashMap();
