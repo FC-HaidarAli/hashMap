@@ -25,13 +25,14 @@ function hashMap() {
         }
 
         if (counter >= bucketLength * 0.75) {
+            //0.75 standard Load Factor (adjust as necessary)
             bucketLength = bucketLength * 2;
         }
 
         return bucketLength;
     }
 
-    function set(key, value) { 
+    function set(key, value) {
         let hashMapObject = keyValueObject(key, value);
         let hashCode = hash(key);
 
@@ -41,7 +42,7 @@ function hashMap() {
         return hashMapArray[hashCode];
     }
 
-    return {set, bucketLength};
+    return { set, bucketLength };
 }
 const testHashMap = hashMap();
 
