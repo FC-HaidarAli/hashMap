@@ -163,3 +163,10 @@ testHashMap.set("tester", "blacker");
 testHashMap.set("reee", "napalm");
 
 console.log(testHashMap.get("apple"));
+
+/* Notes For Tommorrow (Sept 17th)*/
+/*  - left off at the linked list part of the objects, the loop is not registering those values as part of the linked list.
+    - Figure out a way for the addition of a parameter to an object when it becomes a linked list to work while it loops through
+    - Complete all other functions,
+    - Try to finish this by Sept 18th, to move on towards other projects
+*/
