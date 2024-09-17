@@ -46,7 +46,7 @@ function hashMap() {
         }
         let headNode = hashMapArray[hashCode];
         hashMapObject = node(hashMapObject.key, hashMapObject.value, null);
-
+        
         if ("nextAddress" in headNode) {
             if (headNode.nextAddress == null) {
                 headNode.nextAddress = hashMapObject;
@@ -86,10 +86,10 @@ function hashMap() {
     function get(key) {
         for (i = 0; i < bucketLength-1; i++) {
             let keyTag = hashMapArray[i];
-            if (keyTag.key != null) {
+            if (keyTag != null) {
                 if(keyTag.key != key) {
-                    if ("nextAddress" in hashMapArray[i]) {
-
+                    if (keyTag.nextAddress != null) {
+                        console.log('true');
                         let currentNode = hashMapArray[i];
 
                         while (currentNode.nextAddress != null) {
@@ -162,7 +162,7 @@ testHashMap.set("lion", "golden");
 testHashMap.set("tester", "blacker");
 testHashMap.set("reee", "napalm");
 
-console.log(testHashMap.get("apple"));
+console.log(testHashMap.get("tester"));
 
 /* Notes For Tommorrow (Sept 17th)*/
 /*  - left off at the linked list part of the objects, the loop is not registering those values as part of the linked list.
